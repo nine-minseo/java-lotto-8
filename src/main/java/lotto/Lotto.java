@@ -1,13 +1,16 @@
 package lotto;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        List<Integer> copyNumbers = new ArrayList<>(numbers);
+        this.numbers = Collections.unmodifiableList(copyNumbers);
     }
 
     private void validate(List<Integer> numbers) {
@@ -16,5 +19,7 @@ public class Lotto {
         }
     }
 
-    // TODO: 추가 기능 구현
+    public List<Integer> getNumbers() {
+        return this.numbers;
+    }
 }
