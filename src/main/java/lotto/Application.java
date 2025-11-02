@@ -1,6 +1,7 @@
 package lotto;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lotto.view.InputView;
@@ -12,8 +13,12 @@ public class Application {
         int lottoCount = getLottoCount(purchaseAmount);
         OutputView.printLottoCount(lottoCount);
 
-        Lotto lotto = new Lotto(makeNumbers());
-        OutputView.printLotto(lotto);
+        List<Lotto> lottos = new ArrayList<>();
+        for (int i = 0; i < lottoCount; i++) {
+            Lotto lotto = new Lotto(makeNumbers());
+            lottos.add(lotto);
+            OutputView.printLotto(lotto);
+        }
     }
 
     public static int getLottoCount(int purchaseAmount) {
