@@ -13,6 +13,7 @@ public class Application {
         OutputView.printLottoCount(lottoCount);
 
         Lotto lotto = new Lotto(makeNumbers());
+        OutputView.printLotto(lotto);
     }
 
     public static int getLottoCount(int purchaseAmount) {
