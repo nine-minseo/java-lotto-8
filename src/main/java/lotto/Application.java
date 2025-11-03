@@ -1,26 +1,24 @@
 package lotto;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import lotto.service.LottoService;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
         int purchaseAmount = Integer.parseInt(InputView.readPurchaseAmount());
-        int lottoCount = getLottoCount(purchaseAmount);
-        OutputView.printLottoCount(lottoCount);
 
-        List<Lotto> lottos = new ArrayList<>();
-        LottoNumberGenerator generator = new LottoNumberGenerator();
-        for (int i = 0; i < lottoCount; i++) {
-            Lotto lotto = new Lotto(generator.generate());
-            lottos.add(lotto);
+        LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
+        LottoService lottoService = new LottoService(lottoNumberGenerator);
+
+        List<Lotto> lottos = lottoService.purchaseLottos(purchaseAmount);
+
+        OutputView.printLottoCount(lottos.size());
+        for (Lotto lotto : lottos) {
             OutputView.printLotto(lotto);
         }
 
@@ -28,11 +26,9 @@ public class Application {
         Integer bonusNumber = Integer.parseInt(InputView.readBonusNumber());
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-        calculateProfitRate(lottos, winningLotto);
-    }
+        Map<LottoRank, Integer> rankCounts = lottoService.calculateResults(lottos, winningLotto);
 
-    public static int getLottoCount(int purchaseAmount) {
-        return purchaseAmount / 1000;
+        calculateProfitRate(rankCounts, purchaseAmount);
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
@@ -46,22 +42,16 @@ public class Application {
         return numbers;
     }
 
-    public static void calculateProfitRate(List<Lotto> lottos, WinningLotto winningLotto) {
-        Map<LottoRank, Integer> rankCounts = new EnumMap(LottoRank.class);
+    public static void calculateProfitRate(Map<LottoRank, Integer> rankCounts, int purchaseAmount) {
 
-        for (Lotto lotto : lottos) {
-            Optional<LottoRank> optionalRank = winningLotto.match(lotto);
-
-            optionalRank.ifPresent(rank -> {
-                rankCounts.put(rank, rankCounts.getOrDefault(rank, 0) + 1);
-            });
-        }
         long totalPrize = rankCounts.entrySet().stream()
                 .mapToLong(entry -> (long) entry.getKey().getPrizeMoney() * entry.getValue())
                 .sum();
 
-        int totalSpent = lottos.size() * 1000;
-        double profitRate = (totalPrize == 0) ? 0.0 : ((double) totalPrize / totalSpent) * 100.0;
+        double profitRate = 0.0;
+        if (totalPrize > 0) {
+            profitRate = ((double) totalPrize / purchaseAmount) * 100.0;
+        }
 
         OutputView.printProfitRate(rankCounts, profitRate);
     }
