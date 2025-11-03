@@ -113,4 +113,103 @@ class ApplicationTest extends NsTest {
             );
         });
     }
+
+    @Test
+    void 구입금액_빈값_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("", "1000", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1,000원 단위로 로또 구입 금액을 입력해야 합니다.",
+                    "1개를 구매했습니다."
+            );
+        });
+    }
+
+    @Test
+    void 구입금액_공백_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1 000", "1000", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 로또 구입 금액에 공백이 없어야 합니다.",
+                    "1개를 구매했습니다."
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_빈값_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1부터 45 사이의 로또 번호 6개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_개수미만_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1부터 45 사이의 중복되지 않은 로또 번호 6개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_범위초과_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,46", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1부터 45 사이의 중복되지 않은 로또 번호 6개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_구분자_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1;2;3;4;5;6", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 콤마(,)로 구분한 로또 번호를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 보너스번호_빈값_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,6", "", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 보너스 번호 1개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 보너스번호_숫자아님_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,6", "a", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 보너스 번호는 문자가 아닌 1부터 45 사이의 숫자여야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 보너스번호_범위초과_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,6", "46", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
 }

@@ -62,6 +62,9 @@ public class InputView {
         if (winningNumbers.isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 1부터 45 사이의 로또 번호 6개를 입력해야 합니다.");
         }
+        if (winningNumbers.contains(";")) {
+            throw new IllegalArgumentException("[ERROR] 콤마(,)로 구분한 로또 번호를 입력해야 합니다.");
+        }
         String pattern = "^[^,]+(,[^,]+)*$";
         if (!Pattern.matches(pattern, winningNumbers)) {
             throw new IllegalArgumentException("[ERROR] 콤마(,)로 구분한 로또 번호를 입력해야 합니다.");
