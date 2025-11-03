@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import lotto.Lotto;
 import lotto.LottoRank;
+import lotto.LottoResult;
 
 public class OutputView {
     private static final String PROMPT_LOTTO_COUNT = "개를 구매했습니다.";
@@ -28,9 +29,12 @@ public class OutputView {
         System.out.println(formattedLottoNumbers);
     }
 
-    public static void printProfitRate(Map<LottoRank, Integer> rankCounts, double profitRate) {
+    public static void printProfitRate(LottoResult lottoResult, int purchaseAmount) {
         System.out.println(STATISTICS_TITLE);
         System.out.println(STATISTICS_SEPARATOR);
+
+        Map<LottoRank, Integer> rankCounts = lottoResult.getRankCounts();
+        double profitRate = lottoResult.calculateProfitRate(purchaseAmount);
 
         for (LottoRank rank : LottoRank.values()) {
             int count = rankCounts.getOrDefault(rank, 0);
