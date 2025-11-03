@@ -15,17 +15,8 @@ public class InputView {
         System.out.println(PROMPT_PURCHASE_AMOUNT);
         String input = Console.readLine();
 
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 1,000원 단위로 로또 구입 금액을 입력해야 합니다.");
-        }
-        if (input.contains(" ")) {
-            throw new IllegalArgumentException("[ERROR] 로또 구입 금액에 공백이 없어야 합니다.");
-        }
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 로또 구입 금액은 문자가 아닌 숫자여야 합니다.");
-        }
+        validatePurchaseAmountFormat(input);
+        return parsePurchaseAmount(input);
     }
 
     public static List<Integer> readWinningNumbers() {
@@ -39,33 +30,45 @@ public class InputView {
         System.out.println(PROMPT_BONUS_NUMBER);
         String input = Console.readLine();
 
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호 1개를 입력해야 합니다.");
-        }
-
-        try {
-            int bonusNumber = Integer.parseInt(input);
-            if (bonusNumber < 1 || bonusNumber > 45) {
-                throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
-            }
-            return bonusNumber;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 문자가 아닌 1부터 45 사이의 숫자여야 합니다.");
-        }
+        validateBonusNumberFormat(input);
+        return parseAndValidateBonusNumber(input);
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
+        validateWinningNumbersFormat(winningNumbers);
+
+        List<String> splittedNumbers = Arrays.asList(winningNumbers.split(","));
+        return parseWinningNumbers(splittedNumbers);
+    }
+
+    private static void validatePurchaseAmountFormat(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 1,000원 단위로 로또 구입 금액을 입력해야 합니다.");
+        }
+        if (input.contains(" ")) {
+            throw new IllegalArgumentException("[ERROR] 로또 구입 금액에 공백이 없어야 합니다.");
+        }
+    }
+
+    private static int parsePurchaseAmount(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 로또 구입 금액은 문자가 아닌 숫자여야 합니다.");
+        }
+    }
+
+    private static void validateWinningNumbersFormat(String winningNumbers) {
         if (winningNumbers.isEmpty()) {
             throw new IllegalArgumentException("[ERROR] 1부터 45 사이의 로또 번호 6개를 입력해야 합니다.");
         }
-
         String pattern = "^[^,]+(,[^,]+)*$";
         if (!Pattern.matches(pattern, winningNumbers)) {
             throw new IllegalArgumentException("[ERROR] 콤마(,)로 구분한 로또 번호를 입력해야 합니다.");
         }
+    }
 
-        List<String> splittedNumbers = Arrays.asList(winningNumbers.split(","));
-
+    private static List<Integer> parseWinningNumbers(List<String> splittedNumbers) {
         try {
             return splittedNumbers.stream()
                     .map(String::trim)
@@ -73,6 +76,28 @@ public class InputView {
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자로만 구성되어야 합니다.");
+        }
+    }
+
+    private static void validateBonusNumberFormat(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호 1개를 입력해야 합니다.");
+        }
+    }
+
+    private static void validateBonusNumberRange(int bonusNumber) {
+        if (bonusNumber < 1 || bonusNumber > 45) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+        }
+    }
+
+    private static int parseAndValidateBonusNumber(String input) {
+        try {
+            int bonusNumber = Integer.parseInt(input);
+            validateBonusNumberRange(bonusNumber); // 범위 검증 분리
+            return bonusNumber;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 문자가 아닌 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 }
