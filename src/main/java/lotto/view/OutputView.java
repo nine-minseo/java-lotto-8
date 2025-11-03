@@ -36,6 +36,16 @@ public class OutputView {
         Map<LottoRank, Integer> rankCounts = lottoResult.getRankCounts();
         double profitRate = lottoResult.calculateProfitRate(purchaseAmount);
 
+        printRankDetails(rankCounts);
+
+        System.out.printf("총 수익률은 %.1f%%입니다.%n", profitRate);
+    }
+
+    public static void printError(String message) {
+        System.out.println(message);
+    }
+
+    private static void printRankDetails(Map<LottoRank, Integer> rankCounts) {
         for (LottoRank rank : LottoRank.values()) {
             int count = rankCounts.getOrDefault(rank, 0);
 
@@ -45,11 +55,5 @@ public class OutputView {
                     count
             );
         }
-
-        System.out.printf("총 수익률은 %.1f%%입니다.%n", profitRate);
-    }
-
-    public static void printError(String message) {
-        System.out.println(message);
     }
 }
