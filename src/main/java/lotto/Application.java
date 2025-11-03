@@ -1,6 +1,5 @@
 package lotto;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -18,8 +17,9 @@ public class Application {
         OutputView.printLottoCount(lottoCount);
 
         List<Lotto> lottos = new ArrayList<>();
+        LottoNumberGenerator generator = new LottoNumberGenerator();
         for (int i = 0; i < lottoCount; i++) {
-            Lotto lotto = new Lotto(makeNumbers());
+            Lotto lotto = new Lotto(generator.generate());
             lottos.add(lotto);
             OutputView.printLotto(lotto);
         }
@@ -33,13 +33,6 @@ public class Application {
 
     public static int getLottoCount(int purchaseAmount) {
         return purchaseAmount / 1000;
-    }
-
-    public static List<Integer> makeNumbers() {
-        return Randoms.pickUniqueNumbersInRange(1, 45, 6)
-                .stream()
-                .sorted()
-                .collect(Collectors.toList());
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
