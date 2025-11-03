@@ -10,7 +10,7 @@ import lotto.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        int purchaseAmount = Integer.parseInt(InputView.getPurchaseAmount());
+        int purchaseAmount = Integer.parseInt(InputView.readPurchaseAmount());
         int lottoCount = getLottoCount(purchaseAmount);
         OutputView.printLottoCount(lottoCount);
 
@@ -21,7 +21,8 @@ public class Application {
             OutputView.printLotto(lotto);
         }
 
-        Lotto winningNumbers = new Lotto(toInteger(InputView.getWinningNumbers()));
+        Lotto winningNumbers = new Lotto(toInteger(InputView.readWinningNumbers()));
+        Integer bonusNumber = Integer.parseInt(InputView.readBonusNumber());
     }
 
     public static int getLottoCount(int purchaseAmount) {
