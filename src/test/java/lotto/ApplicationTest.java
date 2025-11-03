@@ -58,4 +58,59 @@ class ApplicationTest extends NsTest {
     public void runMain() {
         Application.main(new String[]{});
     }
+
+    @Test
+    void 구입금액_1000원_단위_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1500", "1000", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 로또 구입 금액은 1,000원 단위여야 합니다.",
+                    "1개를 구매했습니다."
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_숫자아님_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,a", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 당첨 번호는 숫자로만 구성되어야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_개수초과_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,6,7", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1부터 45 사이의 중복되지 않은 로또 번호 6개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 당첨번호_중복_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,5", "1,2,3,4,5,6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 1부터 45 사이의 중복되지 않은 로또 번호 6개를 입력해야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
+
+    @Test
+    void 보너스번호_중복_예외_처리_후_재입력_테스트() {
+        assertSimpleTest(() -> {
+            run("1000", "1,2,3,4,5,6", "6", "7");
+            assertThat(output()).contains(
+                    "[ERROR] 보너스 번호는 당첨 번호와 중복되지 않는 1부터 45 사이의 숫자여야 합니다.",
+                    "당첨 통계"
+            );
+        });
+    }
 }

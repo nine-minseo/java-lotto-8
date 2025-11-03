@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 public class InputView {
     private static final String PROMPT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
@@ -14,6 +15,12 @@ public class InputView {
         System.out.println(PROMPT_PURCHASE_AMOUNT);
         String input = Console.readLine();
 
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 1,000원 단위로 로또 구입 금액을 입력해야 합니다.");
+        }
+        if (input.contains(" ")) {
+            throw new IllegalArgumentException("[ERROR] 로또 구입 금액에 공백이 없어야 합니다.");
+        }
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -32,14 +39,31 @@ public class InputView {
         System.out.println(PROMPT_BONUS_NUMBER);
         String input = Console.readLine();
 
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호 1개를 입력해야 합니다.");
+        }
+
         try {
-            return Integer.parseInt(input);
+            int bonusNumber = Integer.parseInt(input);
+            if (bonusNumber < 1 || bonusNumber > 45) {
+                throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+            }
+            return bonusNumber;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 문자가 아닌 1부터 45 사이의 숫자여야 합니다.");
         }
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
+        if (winningNumbers.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 1부터 45 사이의 로또 번호 6개를 입력해야 합니다.");
+        }
+
+        String pattern = "^[^,]+(,[^,]+)*$";
+        if (!Pattern.matches(pattern, winningNumbers)) {
+            throw new IllegalArgumentException("[ERROR] 콤마(,)로 구분한 로또 번호를 입력해야 합니다.");
+        }
+
         List<String> splittedNumbers = Arrays.asList(winningNumbers.split(","));
 
         try {
