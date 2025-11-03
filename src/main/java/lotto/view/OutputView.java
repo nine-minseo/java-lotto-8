@@ -6,6 +6,9 @@ import lotto.Lotto;
 
 public class OutputView {
     private static final String PROMPT_LOTTO_COUNT = "개를 구매했습니다.";
+    private static final String DELIMITER = ", ";
+    private static final String PREFIX = "[";
+    private static final String SUFFIX = "]";
 
     public static void printLottoCount(int lottoCount) {
         System.out.println("\n" + lottoCount + PROMPT_LOTTO_COUNT);
@@ -16,7 +19,7 @@ public class OutputView {
 
         String formattedLottoNumbers = numbers.stream()
                 .map(String::valueOf)
-                .collect(Collectors.joining(", ", "[", "]"));
+                .collect(Collectors.joining(DELIMITER, PREFIX, SUFFIX));
 
         System.out.println(formattedLottoNumbers);
     }
