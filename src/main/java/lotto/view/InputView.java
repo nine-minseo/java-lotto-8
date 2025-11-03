@@ -14,7 +14,11 @@ public class InputView {
         System.out.println(PROMPT_PURCHASE_AMOUNT);
         String input = Console.readLine();
 
-        return Integer.parseInt(input);
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 로또 구입 금액은 문자가 아닌 숫자여야 합니다.");
+        }
     }
 
     public static List<Integer> readWinningNumbers() {
@@ -28,17 +32,23 @@ public class InputView {
         System.out.println(PROMPT_BONUS_NUMBER);
         String input = Console.readLine();
 
-        return Integer.parseInt(input);
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 문자가 아닌 1부터 45 사이의 숫자여야 합니다.");
+        }
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
         List<String> splittedNumbers = Arrays.asList(winningNumbers.split(","));
 
-        List<Integer> numbers = splittedNumbers.stream()
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-
-        return numbers;
+        try {
+            return splittedNumbers.stream()
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 숫자로만 구성되어야 합니다.");
+        }
     }
 }
