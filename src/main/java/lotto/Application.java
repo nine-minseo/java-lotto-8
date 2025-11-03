@@ -2,6 +2,7 @@ package lotto;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lotto.view.InputView;
@@ -19,6 +20,8 @@ public class Application {
             lottos.add(lotto);
             OutputView.printLotto(lotto);
         }
+
+        Lotto winningNumbers = new Lotto(toInteger(InputView.getWinningNumbers()));
     }
 
     public static int getLottoCount(int purchaseAmount) {
@@ -30,5 +33,16 @@ public class Application {
                 .stream()
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    public static List<Integer> toInteger(String winningNumbers) {
+        List<String> splittedNumbers = Arrays.asList(winningNumbers.split(","));
+
+        List<Integer> numbers = splittedNumbers.stream()
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+
+        return numbers;
     }
 }
