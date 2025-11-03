@@ -9,6 +9,7 @@ import lotto.Lotto;
 import lotto.LottoNumberGenerator;
 import lotto.LottoRank;
 import lotto.WinningLotto;
+import lotto.LottoResult;
 
 public class LottoService {
     private final LottoNumberGenerator lottoNumberGenerator;
@@ -34,7 +35,7 @@ public class LottoService {
         return purchaseAmount / 1000;
     }
 
-    public Map<LottoRank, Integer> calculateResults(List<Lotto> lottos, WinningLotto winningLotto) {
+    public LottoResult calculateResults(List<Lotto> lottos, WinningLotto winningLotto) {
         Map<LottoRank, Integer> rankCounts = new EnumMap(LottoRank.class);
 
         for (Lotto lotto : lottos) {
@@ -45,6 +46,6 @@ public class LottoService {
             });
         }
 
-        return rankCounts;
+        return new LottoResult(rankCounts);
     }
 }

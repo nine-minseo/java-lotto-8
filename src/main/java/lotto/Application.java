@@ -26,9 +26,8 @@ public class Application {
         Integer bonusNumber = Integer.parseInt(InputView.readBonusNumber());
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-        Map<LottoRank, Integer> rankCounts = lottoService.calculateResults(lottos, winningLotto);
-
-        calculateProfitRate(rankCounts, purchaseAmount);
+        LottoResult lottoResult = lottoService.calculateResults(lottos, winningLotto);
+        printStatistics(lottoResult, purchaseAmount);
     }
 
     public static List<Integer> toInteger(String winningNumbers) {
@@ -42,16 +41,9 @@ public class Application {
         return numbers;
     }
 
-    public static void calculateProfitRate(Map<LottoRank, Integer> rankCounts, int purchaseAmount) {
-
-        long totalPrize = rankCounts.entrySet().stream()
-                .mapToLong(entry -> (long) entry.getKey().getPrizeMoney() * entry.getValue())
-                .sum();
-
-        double profitRate = 0.0;
-        if (totalPrize > 0) {
-            profitRate = ((double) totalPrize / purchaseAmount) * 100.0;
-        }
+    public static void printStatistics(LottoResult lottoResult, int purchaseAmount) {
+        Map<LottoRank, Integer> rankCounts = lottoResult.getRankCounts();
+        double profitRate = lottoResult.calculateProfitRate(purchaseAmount);
 
         OutputView.printProfitRate(rankCounts, profitRate);
     }
