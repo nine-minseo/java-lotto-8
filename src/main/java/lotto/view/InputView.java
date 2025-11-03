@@ -6,13 +6,13 @@ public class InputView {
     private static final String PROMPT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
     private static final String PROMPT_WINNING_NUMBERS = "\n당첨 번호를 입력해 주세요.";
 
-    public static String getPurchaseAmount() {
+    public static String readPurchaseAmount() {
         System.out.println(PROMPT_PURCHASE_AMOUNT);
 
         return Console.readLine();
     }
 
-    public static String getWinningNumbers() {
+    public static String readWinningNumbers() {
         System.out.println(PROMPT_WINNING_NUMBERS);
 
         return Console.readLine();
