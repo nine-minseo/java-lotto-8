@@ -11,7 +11,9 @@ public class InputView {
 
         InputValidator.validateHasInput(input);
 
-        return Integer.parseInt(input.trim());
+        int num = InputValidator.validateIsNumeric(input);
+
+        return num;
     }
 
     public static List<Integer> readWinningNumbers() {
@@ -34,6 +36,8 @@ public class InputView {
 
         InputValidator.validateHasInput(input);
 
-        return Integer.parseInt(input.trim());
+        int num = InputValidator.validateIsNumeric(input);
+
+        return num;
     }
 }
