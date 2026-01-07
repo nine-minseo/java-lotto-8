@@ -23,14 +23,14 @@ public class InputValidator {
         }
     }
 
-    public static void validatePurchaseUnit(int input) {
-        if (input % 1000 != 0) {
+    public static void validatePurchaseUnit(int amount) {
+        if (amount % 1000 != 0) {
             throw new IllegalArgumentException("[Error] 금액은 1,000원 단위여야 합니다.");
         }
     }
 
-    public static void validateNumberRange(int input) {
-        if (input < 1 || input > 45) {
+    public static void validateNumberRange(int num) {
+        if (num < 1 || num > 45) {
             throw new IllegalArgumentException("[ERROR] 1 ~ 45 사이의 숫자여야 합니다.");
         }
     }
