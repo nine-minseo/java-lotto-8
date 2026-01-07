@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InputView {
-    public static String readPurchaseAmount() {
+    public static int readPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
         String input = Console.readLine();
 
-        return input;
+        return Integer.parseInt(input.trim());
     }
 
     public static List<String> readWinningNumbers() {

@@ -5,7 +5,7 @@ import lotto.view.InputView;
 
 public class Application {
     public static void main(String[] args) {
-        String purchaseAmount = InputView.readPurchaseAmount();
+        int purchaseAmount = InputView.readPurchaseAmount();
         List<String> winningNumbers = InputView.readWinningNumbers();
         int bonusNum = InputView.readBonusNumber();
     }
