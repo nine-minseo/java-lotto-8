@@ -26,7 +26,7 @@ public class InputView {
 
         List<Integer> winningNums = Arrays.stream(input.split(","))
                 .map(s -> s.trim())
-                .map(s -> Integer.parseInt(s))
+                .map(s -> InputValidator.validateIsNumeric(s))
                 .toList();
 
         return new Lotto(winningNums);
