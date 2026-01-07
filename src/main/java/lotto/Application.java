@@ -13,9 +13,6 @@ public class Application {
 
         OutputView.printLottoCount(lottoCount);
 
-        List<String> winningNumbers = InputView.readWinningNumbers();
-        int bonusNum = InputView.readBonusNumber();
-
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6)
@@ -24,6 +21,14 @@ public class Application {
                     .toList();
             lottos.add(new Lotto(numbers));
         }
+
+        for (Lotto lotto : lottos) {
+            OutputView.printLotto(lotto);
+        }
+
+        List<String> winningNumbers = InputView.readWinningNumbers();
+        int bonusNum = InputView.readBonusNumber();
+
 
     }
 }

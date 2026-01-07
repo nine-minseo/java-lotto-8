@@ -1,7 +1,18 @@
 package lotto.view;
 
+import java.util.stream.Collectors;
+import lotto.Lotto;
+
 public class OutputView {
     public static void printLottoCount(int num) {
-        System.out.println(num + "개를 구매했습니다.");
+        System.out.println("\n" + num + "개를 구매했습니다.");
+    }
+
+    public static void printLotto(Lotto lotto) {
+        String result = lotto.getNumbers().stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(", ", "[", "]"));
+
+        System.out.println(result);
     }
 }
