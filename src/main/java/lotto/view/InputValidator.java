@@ -20,4 +20,10 @@ public class InputValidator {
             throw new IllegalArgumentException("[ERROR] 양수만 입력할 수 있습니다.");
         }
     }
+
+    public static void validateNumberRange(int number) {
+        if (number < 1 || number > 45) {
+            throw new IllegalArgumentException("[ERROR] 1 ~ 45 사이의 숫자여야 합니다.");
+        }
+    }
 }

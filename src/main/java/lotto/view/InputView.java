@@ -36,6 +36,7 @@ public class InputView {
 
         InputValidator.validateHasInput(input);
         int num = InputValidator.validateIsNumeric(input);
+        InputValidator.validateNumberRange(num);
 
         return num;
     }
