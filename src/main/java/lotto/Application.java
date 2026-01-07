@@ -4,14 +4,17 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 import lotto.view.InputView;
+import lotto.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
         int purchaseAmount = InputView.readPurchaseAmount();
+        int lottoCount = purchaseAmount / 1000;
+
+        OutputView.printLottoCount(lottoCount);
+
         List<String> winningNumbers = InputView.readWinningNumbers();
         int bonusNum = InputView.readBonusNumber();
-
-        int lottoCount = purchaseAmount / 1000;
 
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
@@ -21,6 +24,6 @@ public class Application {
                     .toList();
             lottos.add(new Lotto(numbers));
         }
-        
+
     }
 }
