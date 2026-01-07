@@ -8,5 +8,8 @@ public class Application {
         int purchaseAmount = InputView.readPurchaseAmount();
         List<String> winningNumbers = InputView.readWinningNumbers();
         int bonusNum = InputView.readBonusNumber();
+
+        int lottoCount = purchaseAmount / 1000;
+
     }
 }
