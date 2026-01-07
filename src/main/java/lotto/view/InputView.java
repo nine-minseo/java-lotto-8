@@ -22,4 +22,11 @@ public class InputView {
 
         return winningNums;
     }
+
+    public static int readBonusNumber() {
+        System.out.println("보너스 번호를 입력해 주세요.");
+        String input = Console.readLine();
+
+        return Integer.parseInt(input.trim());
+    }
 }
