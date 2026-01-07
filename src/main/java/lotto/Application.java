@@ -1,9 +1,11 @@
 package lotto;
 
+import java.util.List;
 import lotto.view.InputView;
 
 public class Application {
     public static void main(String[] args) {
-        String input = InputView.readPurchaseAmount();
+        String purchaseAmount = InputView.readPurchaseAmount();
+        List<String> winningNumbers = InputView.readWinningNumbers();
     }
 }
