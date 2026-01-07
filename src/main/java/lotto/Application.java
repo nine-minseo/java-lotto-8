@@ -12,7 +12,10 @@ public class Application {
 
         int lottoCount = purchaseAmount / 1000;
 
-        List<Integer> lotto = Randoms.pickUniqueNumbersInRange(1, 45, 6);
-
+        List<Integer> lotto = Randoms.pickUniqueNumbersInRange(1, 45, 6)
+                .stream()
+                .sorted()
+                .toList();
+        System.out.println(lotto);
     }
 }
