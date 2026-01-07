@@ -31,7 +31,7 @@ public class Application {
         }
 
         Lotto winningLotto = retryUntilValid(() -> InputView.readWinningLotto());
-        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber());
+        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningLotto));
 
         Map<Rank, Integer> result = new HashMap<>();
         for (Rank rank : Rank.values()) {
