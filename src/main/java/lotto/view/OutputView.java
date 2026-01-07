@@ -10,7 +10,7 @@ public class OutputView {
 
     public static void printLotto(Lotto lotto) {
         String result = lotto.getNumbers().stream()
-                .map(String::valueOf)
+                .map(num -> String.valueOf(num))
                 .collect(Collectors.joining(", ", "[", "]"));
 
         System.out.println(result);
