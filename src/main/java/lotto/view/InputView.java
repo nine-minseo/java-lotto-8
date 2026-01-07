@@ -13,6 +13,7 @@ public class InputView {
         InputValidator.validateHasInput(input);
         int num = InputValidator.validateIsNumeric(input);
         InputValidator.validateIsPositive(num);
+        InputValidator.validatePurchaseUnit(num);
 
         return num;
     }

@@ -15,6 +15,12 @@ public class InputValidator {
         }
     }
 
+    public static void validatePurchaseUnit(int input) {
+        if (input % 1000 != 0) {
+            throw new IllegalArgumentException("[Error] 금액은 1,000원 단위여야 합니다.");
+        }
+    }
+
     public static void validateIsPositive(int input) {
         if (input <= 0) {
             throw new IllegalArgumentException("[ERROR] 양수만 입력할 수 있습니다.");
