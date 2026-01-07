@@ -10,8 +10,8 @@ public class InputView {
         String input = Console.readLine();
 
         InputValidator.validateHasInput(input);
-
         int num = InputValidator.validateIsNumeric(input);
+        InputValidator.validateIsPositive(num);
 
         return num;
     }
@@ -35,7 +35,6 @@ public class InputView {
         String input = Console.readLine();
 
         InputValidator.validateHasInput(input);
-
         int num = InputValidator.validateIsNumeric(input);
 
         return num;

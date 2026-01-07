@@ -14,4 +14,10 @@ public class InputValidator {
             throw new IllegalArgumentException("[ERROR] 숫자가 아닌 문자가 포함되어 있습니다.");
         }
     }
+
+    public static void validateIsPositive(int input) {
+        if (input <= 0) {
+            throw new IllegalArgumentException("[ERROR] 양수만 입력할 수 있습니다.");
+        }
+    }
 }
