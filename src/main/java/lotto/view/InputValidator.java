@@ -27,8 +27,8 @@ public class InputValidator {
         }
     }
 
-    public static void validateNumberRange(int number) {
-        if (number < 1 || number > 45) {
+    public static void validateNumberRange(int input) {
+        if (input < 1 || input > 45) {
             throw new IllegalArgumentException("[ERROR] 1 ~ 45 사이의 숫자여야 합니다.");
         }
     }
