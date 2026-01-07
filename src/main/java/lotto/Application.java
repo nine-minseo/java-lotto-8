@@ -30,7 +30,7 @@ public class Application {
             OutputView.printLotto(lotto);
         }
 
-        List<Integer> winningNumbers = retryUntilValid(() -> InputView.readWinningNumbers());
+        Lotto winningLotto = retryUntilValid(() -> InputView.readWinningLotto());
         int bonusNum = retryUntilValid(() -> InputView.readBonusNumber());
 
         Map<Rank, Integer> result = new HashMap<>();
@@ -39,7 +39,7 @@ public class Application {
         }
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatch(winningNumbers);
+            int matchCount = lotto.countMatch(winningLotto);
             boolean isMatchBonus = lotto.contains(bonusNum);
 
             Rank rank = Rank.valueOf(matchCount, isMatchBonus);

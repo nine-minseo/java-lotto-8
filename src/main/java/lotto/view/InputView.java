@@ -3,6 +3,7 @@ package lotto.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
+import lotto.Lotto;
 
 public class InputView {
     public static int readPurchaseAmount() {
@@ -16,7 +17,7 @@ public class InputView {
         return num;
     }
 
-    public static List<Integer> readWinningNumbers() {
+    public static Lotto readWinningLotto() {
         System.out.println("\n당첨 번호를 입력해 주세요.");
         String input = Console.readLine();
 
@@ -27,7 +28,7 @@ public class InputView {
                 .map(s -> Integer.parseInt(s))
                 .toList();
 
-        return winningNums;
+        return new Lotto(winningNums);
     }
 
     public static int readBonusNumber() {
