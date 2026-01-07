@@ -12,12 +12,13 @@ public class InputView {
         return Integer.parseInt(input.trim());
     }
 
-    public static List<String> readWinningNumbers() {
+    public static List<Integer> readWinningNumbers() {
         System.out.println("\n당첨 번호를 입력해 주세요.");
         String input = Console.readLine();
 
-        List<String> winningNums = Arrays.stream(input.split(","))
-                .map(String::trim)
+        List<Integer> winningNums = Arrays.stream(input.split(","))
+                .map(s -> s.trim())
+                .map(s -> Integer.parseInt(s))
                 .toList();
 
         return winningNums;
