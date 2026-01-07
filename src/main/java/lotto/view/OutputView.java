@@ -15,4 +15,9 @@ public class OutputView {
 
         System.out.println(result);
     }
+
+    public static void printWinningStatisticsTitle() {
+        System.out.println("\n당첨 통계");
+        System.out.println("---");
+    }
 }

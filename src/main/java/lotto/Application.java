@@ -45,5 +45,13 @@ public class Application {
 
             result.put(rank, result.get(rank) + 1);
         }
+
+        OutputView.printWinningStatisticsTitle();
+
+        for (Rank rank : Rank.values()) {
+            if (rank != Rank.MISS) {
+                System.out.println(rank.getMessage() + " - " + result.get(rank) + "개");
+            }
+        }
     }
 }
