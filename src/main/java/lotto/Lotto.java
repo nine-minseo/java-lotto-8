@@ -11,6 +11,7 @@ public class Lotto {
     public Lotto(List<Integer> numbers) {
         validateLottoNumberRange(numbers);
         validateLottoNumberCount(numbers);
+        validateDuplicate(numbers);
         this.numbers = numbers;
     }
 
@@ -28,7 +29,7 @@ public class Lotto {
         }
     }
 
-    private void validate(List<Integer> numbers) {
+    private void validateDuplicate(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
 
         if (uniqueNumbers.size() != numbers.size()) {

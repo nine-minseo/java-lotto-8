@@ -57,7 +57,7 @@ public class Application {
 
         double totalPrize = 0;
         for (Rank rank : result.keySet()) {
-            totalPrize += (double)rank.getWinningMoney() * result.get(rank);
+            totalPrize += (double) rank.getWinningMoney() * result.get(rank);
         }
 
         double profitRate = (totalPrize / purchaseAmount) * 100;
@@ -65,7 +65,7 @@ public class Application {
         OutputView.printProfitRate(profitRate);
     }
 
-    private static <T> T retryUntilValid(Supplier <T> supplier) {
+    private static <T> T retryUntilValid(Supplier<T> supplier) {
         while (true) {
             try {
                 return supplier.get();

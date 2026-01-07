@@ -1,6 +1,5 @@
 package lotto.view;
 
-import java.util.List;
 import lotto.Lotto;
 
 public class InputValidator {
