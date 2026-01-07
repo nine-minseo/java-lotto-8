@@ -53,5 +53,14 @@ public class Application {
                 System.out.println(rank.getMessage() + " - " + result.get(rank) + "개");
             }
         }
+
+        double totalPrize = 0;
+        for (Rank rank : result.keySet()) {
+            totalPrize += (double)rank.getWinningMoney() * result.get(rank);
+        }
+
+        double profitRate = (totalPrize / purchaseAmount) * 100;
+
+        OutputView.printProfitRate(profitRate);
     }
 }
