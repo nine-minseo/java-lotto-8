@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import lotto.domain.Rank;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        int purchaseAmount = InputView.readPurchaseAmount();
+        int purchaseAmount = retryUntilValid(() -> InputView.readPurchaseAmount());
         int lottoCount = purchaseAmount / 1000;
 
         OutputView.printLottoCount(lottoCount);
@@ -29,8 +30,8 @@ public class Application {
             OutputView.printLotto(lotto);
         }
 
-        List<Integer> winningNumbers = InputView.readWinningNumbers();
-        int bonusNum = InputView.readBonusNumber();
+        List<Integer> winningNumbers = retryUntilValid(() -> InputView.readWinningNumbers());
+        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber());
 
         Map<Rank, Integer> result = new HashMap<>();
         for (Rank rank : Rank.values()) {
@@ -62,5 +63,15 @@ public class Application {
         double profitRate = (totalPrize / purchaseAmount) * 100;
 
         OutputView.printProfitRate(profitRate);
+    }
+
+    private static <T> T retryUntilValid(Supplier <T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
