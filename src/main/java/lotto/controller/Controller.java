@@ -2,11 +2,10 @@ package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 import lotto.Lotto;
+import lotto.domain.LottoResult;
 import lotto.domain.Rank;
 import lotto.domain.WinningLotto;
 import lotto.view.InputView;
@@ -28,30 +27,22 @@ public class Controller {
         int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningNumbers));
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNum);
 
-        Map<Rank, Integer> result = new HashMap<>();
-        for (Rank rank : Rank.values()) {
-            result.put(rank, 0);
-        }
+        LottoResult lottoResult = new LottoResult();
 
         for (Lotto lotto : lottos) {
             Rank rank = winningLotto.match(lotto);
-            result.put(rank, result.get(rank) + 1);
+            lottoResult.add(rank);
         }
 
         OutputView.printWinningStatisticsTitle();
 
         for (Rank rank : Rank.values()) {
             if (rank != Rank.MISS) {
-                System.out.println(rank.getMessage() + " - " + result.get(rank) + "개");
+                System.out.println(rank.getMessage() + " - " + lottoResult.getCount(rank) + "개");
             }
         }
 
-        double totalPrize = 0;
-        for (Rank rank : result.keySet()) {
-            totalPrize += (double) rank.getWinningMoney() * result.get(rank);
-        }
-
-        double profitRate = (totalPrize / purchaseAmount) * 100;
+        double profitRate = lottoResult.calculateProfitRate(purchaseAmount);
 
         OutputView.printProfitRate(profitRate);
     }
