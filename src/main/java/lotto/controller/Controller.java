@@ -25,7 +25,7 @@ public class Controller {
         }
 
         Lotto winningNumbers = retryUntilValid(() -> InputView.readWinningLotto());
-        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningLotto));
+        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningNumbers));
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNum);
 
         Map<Rank, Integer> result = new HashMap<>();
