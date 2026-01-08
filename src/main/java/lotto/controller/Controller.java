@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import lotto.Lotto;
 import lotto.domain.Rank;
+import lotto.domain.WinningLotto;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -23,8 +24,9 @@ public class Controller {
             OutputView.printLotto(lotto);
         }
 
-        Lotto winningLotto = retryUntilValid(() -> InputView.readWinningLotto());
+        Lotto winningNumbers = retryUntilValid(() -> InputView.readWinningLotto());
         int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningLotto));
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNum);
 
         Map<Rank, Integer> result = new HashMap<>();
         for (Rank rank : Rank.values()) {
@@ -32,11 +34,7 @@ public class Controller {
         }
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatch(winningLotto);
-            boolean isMatchBonus = lotto.contains(bonusNum);
-
-            Rank rank = Rank.valueOf(matchCount, isMatchBonus);
-
+            Rank rank = winningLotto.match(lotto);
             result.put(rank, result.get(rank) + 1);
         }
 
