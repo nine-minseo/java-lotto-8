@@ -32,14 +32,13 @@ public class InputView {
         return new Lotto(winningNums);
     }
 
-    public static int readBonusNumber(Lotto winningLotto) {
+    public static int readBonusNumber() {
         System.out.println("\n보너스 번호를 입력해 주세요.");
         String input = Console.readLine();
 
         InputValidator.validateHasInput(input);
         int num = InputValidator.validateIsNumeric(input);
         InputValidator.validateNumberRange(num);
-        InputValidator.validateBonusNumDuplicate(num, winningLotto);
 
         return num;
     }

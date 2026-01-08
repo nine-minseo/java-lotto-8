@@ -21,8 +21,10 @@ public class Controller {
         OutputView.printLottos(lottos);
 
         Lotto winningNumbers = retryUntilValid(() -> InputView.readWinningLotto());
-        int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningNumbers));
-        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNum);
+        WinningLotto winningLotto = retryUntilValid(() -> {
+            int bonusNum = InputView.readBonusNumber();
+            return new WinningLotto(winningNumbers, bonusNum);
+        });
 
         LottoResult lottoResult = new LottoResult();
 
