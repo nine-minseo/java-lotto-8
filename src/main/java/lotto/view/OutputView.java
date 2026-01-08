@@ -1,6 +1,6 @@
 package lotto.view;
 
-import java.util.stream.Collectors;
+import java.util.List;
 import lotto.domain.Lotto;
 
 public class OutputView {
@@ -8,12 +8,12 @@ public class OutputView {
         System.out.println("\n" + num + "개를 구매했습니다.");
     }
 
-    public static void printLotto(Lotto lotto) {
-        String result = lotto.getNumbers().stream()
-                .map(num -> String.valueOf(num))
-                .collect(Collectors.joining(", ", "[", "]"));
-
-        System.out.println(result);
+    public static void printLottos(List<Lotto> lottos) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Lotto lotto : lottos) {
+            stringBuilder.append(lotto.getNumbers()).append("\n");
+        }
+        System.out.println(stringBuilder.toString());
     }
 
     public static void printWinningStatisticsTitle() {

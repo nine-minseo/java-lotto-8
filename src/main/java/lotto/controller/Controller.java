@@ -18,10 +18,7 @@ public class Controller {
         List<Lotto> lottos = buyLottos(purchaseAmount);
 
         OutputView.printLottoCount(lottos.size());
-
-        for (Lotto lotto : lottos) {
-            OutputView.printLotto(lotto);
-        }
+        OutputView.printLottos(lottos);
 
         Lotto winningNumbers = retryUntilValid(() -> InputView.readWinningLotto());
         int bonusNum = retryUntilValid(() -> InputView.readBonusNumber(winningNumbers));
