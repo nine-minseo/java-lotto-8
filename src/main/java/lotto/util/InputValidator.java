@@ -1,6 +1,4 @@
-package lotto.view;
-
-import lotto.domain.Lotto;
+package lotto.util;
 
 public class InputValidator {
     public static void validateHasInput(String input) {

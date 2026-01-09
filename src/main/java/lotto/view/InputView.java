@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
 import lotto.domain.Lotto;
+import lotto.util.InputValidator;
 
 public class InputView {
     public static int readPurchaseAmount() {
